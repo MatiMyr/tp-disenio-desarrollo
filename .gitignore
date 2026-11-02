@@ -1,0 +1,17 @@
+# Backend
+api/target/
+*.class
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/next-env.d.ts
+
+# Varios
+.env
+.env.*
+*.log
+.DS_Store
+.idea/
+.vscode/
