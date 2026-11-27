@@ -815,6 +815,15 @@ td.empty-cell {
 .opt-foot .sum.bad {
   color: var(--err-txt);
 }
+/* Aviso al lado del botón cuando ya no se pueden agregar más opciones */
+.tope {
+  border: 1.5px solid var(--warn-bd);
+  background: var(--warn-lt);
+  color: var(--warn);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: var(--txt-sm);
+}
 .estado-badge {
   display: inline-block;
   padding: 2px 8px;
