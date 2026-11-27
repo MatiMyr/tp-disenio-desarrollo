@@ -49,6 +49,8 @@ export default function PantallaEvaluarCandidatos() {
   const [encontrados, setEncontrados] = useState<CandidatoDTO[]>([]);
   const [buscado, setBuscado] = useState(false);
   const [marcados, setMarcados] = useState<number[]>([]);
+  const [porPagina, setPorPagina] = useState(10);
+  const [pagina, setPagina] = useState(0);
 
   // Paso 2
   const [aEvaluar, setAEvaluar] = useState<CandidatoDTO[]>([]);
@@ -69,6 +71,21 @@ export default function PantallaEvaluarCandidatos() {
     }
   }, [paso, puestos.length]);
 
+  // Al entrar se listan todos los candidatos, paginados según la configuración
+  useEffect(() => {
+    api
+      .get<{ candidatosPorPagina: number }>('/configuracion')
+      .then((c) => setPorPagina(c.candidatosPorPagina))
+      .catch(() => undefined);
+    api
+      .get<CandidatoDTO[]>('/candidatos')
+      .then((datos) => {
+        setEncontrados(datos);
+        setBuscado(true);
+      })
+      .catch((e) => setErrores(mensajesDeError(e)));
+  }, []);
+
   async function buscarCandidatos() {
     setErrores([]);
     try {
@@ -78,6 +95,7 @@ export default function PantallaEvaluarCandidatos() {
       if (nro.trim()) parametros.set('nroCandidato', nro.trim());
       setEncontrados(await api.get<CandidatoDTO[]>(`/candidatos?${parametros.toString()}`));
       setMarcados([]);
+      setPagina(0);
       setBuscado(true);
     } catch (e) {
       setErrores(mensajesDeError(e));
@@ -173,6 +191,8 @@ export default function PantallaEvaluarCandidatos() {
   }
 
   const hayNoEvaluables = competencias.some((c) => !c.evaluable);
+  const totalPaginas = Math.max(1, Math.ceil(encontrados.length / porPagina));
+  const visibles = encontrados.slice(pagina * porPagina, (pagina + 1) * porPagina);
 
   return (
     <div className="pantalla">
@@ -236,12 +256,12 @@ export default function PantallaEvaluarCandidatos() {
                   { titulo: 'Nombre' },
                   { titulo: 'Documento' },
                 ]}
-                filas={encontrados.length}
+                filas={visibles.length}
                 buscado={buscado}
                 textoVacio="Ingrese criterios de búsqueda y presione Buscar para ver resultados"
                 textoSinResultados="No se encontraron candidatos con esos criterios"
               >
-                {encontrados.map((c) => {
+                {visibles.map((c) => {
                   const enLista = aEvaluar.some((x) => x.nroCandidato === c.nroCandidato);
                   const marcado = marcados.includes(c.nroCandidato);
                   return (
@@ -269,6 +289,23 @@ export default function PantallaEvaluarCandidatos() {
                   );
                 })}
               </Grilla>
+              {totalPaginas > 1 && (
+                <div className="action-bar">
+                  <Boton chico onClick={() => setPagina(pagina - 1)} deshabilitado={pagina === 0}>
+                    ← Anterior
+                  </Boton>
+                  <span style={{ color: 'var(--mid)' }}>
+                    Página {pagina + 1} de {totalPaginas}
+                  </span>
+                  <Boton
+                    chico
+                    onClick={() => setPagina(pagina + 1)}
+                    deshabilitado={pagina >= totalPaginas - 1}
+                  >
+                    Siguiente →
+                  </Boton>
+                </div>
+              )}
               <div className="action-bar">
                 <Boton tipo="primary" onClick={agregarSeleccionados} deshabilitado={!buscado}>
                   + Agregar Seleccionados

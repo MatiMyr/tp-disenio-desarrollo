@@ -20,7 +20,9 @@ INSERT INTO parametro (clave, valor) VALUES
  ('preguntas_por_bloque', '4'),
  ('tiempo_maximo_minutos', '60'),
  ('plazo_activo_dias', '7'),
- ('max_accesos', '3');
+ ('max_accesos', '3'),
+ -- Candidatos por página en la búsqueda de CU025. Valores admitidos: 10, 20 o 50
+ ('candidatos_por_pagina', '10');
 
 -- ---------------- Consultores (el login real va por LDAP) ----------------
 INSERT INTO consultor (nombre_usuario) VALUES ('consultor'), ('mmeyer');
