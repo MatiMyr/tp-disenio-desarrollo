@@ -2,10 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
-import Boton from '@/components/Boton';
 import Encabezado from '@/components/Encabezado';
 import { useConsultor } from '@/components/SesionConsultor';
-import { cerrarSesion, iniciales } from '@/lib/sesion';
+import { iniciales } from '@/lib/sesion';
 
 type Acceso = {
   cu: string;
@@ -63,17 +62,6 @@ export default function PantallaInicio() {
       <div className="content" style={{ gap: 18 }}>
         <div className="home-top">
           <h1>Sistema de Gestión de Evaluaciones de Perfiles</h1>
-          <div className="btn-row">
-            <Boton
-              chico
-              onClick={() => {
-                cerrarSesion();
-                router.push('/');
-              }}
-            >
-              ⎋ Cerrar sesión
-            </Boton>
-          </div>
         </div>
 
         <div className="flow">

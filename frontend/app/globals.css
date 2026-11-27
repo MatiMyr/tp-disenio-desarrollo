@@ -150,13 +150,56 @@ body {
   color: var(--primary);
   text-decoration: underline;
 }
-.hdr-user {
+.hdr-menu {
   margin-left: auto;
+  position: relative;
+}
+.hdr-user {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: var(--txt);
   color: var(--mid);
+  background: none;
+  border: none;
+  font-family: var(--f);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius, 4px);
+}
+.hdr-user:hover {
+  background: var(--panel);
+}
+.hdr-flecha {
+  font-size: var(--txt-sm);
+}
+.hdr-desplegable {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--light);
+  z-index: 50;
+  min-width: 180px;
+}
+.hdr-desplegable button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--f);
+  font-size: var(--txt);
+  color: var(--ink);
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hdr-desplegable button:hover {
+  background: var(--primary-lt);
+  color: var(--primary);
 }
 .hdr-avatar {
   width: 32px;
@@ -536,6 +579,23 @@ td.empty-cell {
   border-color: #555;
   color: #555;
 }
+/* Cruz para sacar una fila de la selección */
+.quitar {
+  border: 1.5px solid var(--danger);
+  background: var(--danger-lt);
+  color: var(--danger);
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  font-family: var(--f);
+  font-size: var(--txt-sm);
+  line-height: 1;
+  cursor: pointer;
+}
+.quitar:hover {
+  background: var(--danger);
+  color: #fff;
+}
 
 /* ---------- Asistente por pasos ---------- */
 .wizard-bar {
@@ -797,6 +857,15 @@ td.empty-cell {
 }
 .opt-foot .sum.bad {
   color: var(--err-txt);
+}
+/* Aviso al lado del botón cuando ya no se pueden agregar más opciones */
+.tope {
+  border: 1.5px solid var(--warn-bd);
+  background: var(--warn-lt);
+  color: var(--warn);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: var(--txt-sm);
 }
 .estado-badge {
   display: inline-block;

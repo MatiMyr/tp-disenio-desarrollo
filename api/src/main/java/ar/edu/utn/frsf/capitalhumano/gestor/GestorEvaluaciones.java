@@ -209,12 +209,24 @@ public class GestorEvaluaciones {
         if (claves == null || claves.isEmpty()) {
             throw new ReglaNegocioException("No hay candidatos para exportar");
         }
+        // Mismo contenido que el informe de claves: datos del proceso, la grilla
+        // de candidatos y la nota de confidencialidad
         List<List<String>> datos = new ArrayList<>();
-        datos.add(List.of("Apellido", "Nombre", "Tipo Documento", "Nro Documento", "Clave de Ingreso"));
+        datos.add(List.of("EvalPro - Lista de candidatos y claves de acceso"));
+        datos.add(List.of("Puesto / función:", nombrePuesto));
+        datos.add(List.of("Fecha de generación:",
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        datos.add(List.of("Total de candidatos:", String.valueOf(claves.size())));
+        datos.add(List.of(""));
+        datos.add(List.of("Nro Cand.", "Apellido", "Nombre", "Tipo Doc.", "Nro Documento",
+                "Clave de Acceso"));
         for (CandidatoClaveDTO clave : claves) {
-            datos.add(List.of(clave.apellido(), clave.nombre(), clave.tipoDocumento(),
-                    clave.nroDocumento(), clave.clave()));
+            datos.add(List.of(String.valueOf(clave.nroCandidato()), clave.apellido(), clave.nombre(),
+                    clave.tipoDocumento(), clave.nroDocumento(), clave.clave()));
         }
+        datos.add(List.of(""));
+        datos.add(List.of("Documento de distribución restringida: las claves son de uso exclusivo "
+                + "e intransferible de cada candidato."));
 
         String nombreArchivo = LocalDateTime.now().format(FORMATO_ARCHIVO) + "-"
                 + normalizar(nombrePuesto) + ".xls";
