@@ -614,9 +614,20 @@ export default function PantallaEvaluarCandidatos() {
           titulo="⚠ Competencias que no pueden evaluarse"
           colorTitulo="var(--warn)"
           acciones={
-            <Boton tipo="primary" onClick={() => router.push('/inicio')}>
-              ✔ Aceptar
-            </Boton>
+            <>
+              <Boton onClick={() => router.push('/inicio')}>Volver al inicio</Boton>
+              <Boton
+                tipo="primary"
+                onClick={() => {
+                  // Se cierra el aviso y se limpia el puesto para elegir otro
+                  setModal(null);
+                  setPuesto(null);
+                  setCompetencias([]);
+                }}
+              >
+                ✔ Aceptar
+              </Boton>
+            </>
           }
         >
           Las siguientes competencias del puesto <strong>{puesto?.nombre}</strong> no tienen ningún
@@ -628,6 +639,7 @@ export default function PantallaEvaluarCandidatos() {
                 <li key={c.nombreCompetencia}>{c.nombreCompetencia}</li>
               ))}
           </ul>
+          Con <strong>Aceptar</strong> puede elegir otro puesto sin perder los candidatos cargados.
         </Modal>
       )}
 
