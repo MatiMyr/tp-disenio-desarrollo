@@ -345,6 +345,9 @@ export default function PantallaAltaPregunta() {
                 >
                   + Agregar opción
                 </Boton>
+                {opciones.length >= MAXIMO_OPCIONES && (
+                  <span className="tope">Máximo {MAXIMO_OPCIONES} opciones</span>
+                )}
                 <span>
                   Suma actual:{' '}
                   <span className={`sum ${sumaOk ? 'ok' : 'bad'}`}>
