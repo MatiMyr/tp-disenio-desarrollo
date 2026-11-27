@@ -1,6 +1,9 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { cerrarSesion } from '@/lib/sesion';
 
 export type Miga = { texto: string; ruta?: string };
 
@@ -10,9 +13,22 @@ type Props = {
   inicialesUsuario?: string;
 };
 
-/** Encabezado con el logo, las migas de pan y el usuario, como en el prototipo. */
+/** Encabezado con el logo, las migas de pan y el menú del usuario. */
 export default function Encabezado({ migas, usuario, inicialesUsuario }: Props) {
   const router = useRouter();
+  const [abierto, setAbierto] = useState(false);
+  const menu = useRef<HTMLDivElement>(null);
+
+  // Al tocar fuera del menú, se cierra
+  useEffect(() => {
+    function alTocarFuera(e: MouseEvent) {
+      if (menu.current && !menu.current.contains(e.target as Node)) {
+        setAbierto(false);
+      }
+    }
+    document.addEventListener('mousedown', alTocarFuera);
+    return () => document.removeEventListener('mousedown', alTocarFuera);
+  }, []);
 
   return (
     <header className="hdr">
@@ -43,9 +59,31 @@ export default function Encabezado({ migas, usuario, inicialesUsuario }: Props) 
         })}
       </nav>
       {usuario && (
-        <div className="hdr-user">
-          <span className="hdr-avatar">{inicialesUsuario ?? usuario.slice(0, 2).toUpperCase()}</span>
-          <span>{usuario}</span>
+        <div className="hdr-menu" ref={menu}>
+          <button
+            className="hdr-user"
+            onClick={() => setAbierto(!abierto)}
+            aria-expanded={abierto}
+            title="Opciones de la sesión"
+          >
+            <span className="hdr-avatar">
+              {inicialesUsuario ?? usuario.slice(0, 2).toUpperCase()}
+            </span>
+            <span>{usuario}</span>
+            <span className="hdr-flecha">{abierto ? '▴' : '▾'}</span>
+          </button>
+          {abierto && (
+            <div className="hdr-desplegable">
+              <button
+                onClick={() => {
+                  cerrarSesion();
+                  router.push('/');
+                }}
+              >
+                ⎋ Cerrar sesión
+              </button>
+            </div>
+          )}
         </div>
       )}
     </header>

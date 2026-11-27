@@ -150,13 +150,56 @@ body {
   color: var(--primary);
   text-decoration: underline;
 }
-.hdr-user {
+.hdr-menu {
   margin-left: auto;
+  position: relative;
+}
+.hdr-user {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: var(--txt);
   color: var(--mid);
+  background: none;
+  border: none;
+  font-family: var(--f);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius, 4px);
+}
+.hdr-user:hover {
+  background: var(--panel);
+}
+.hdr-flecha {
+  font-size: var(--txt-sm);
+}
+.hdr-desplegable {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--light);
+  z-index: 50;
+  min-width: 180px;
+}
+.hdr-desplegable button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--f);
+  font-size: var(--txt);
+  color: var(--ink);
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hdr-desplegable button:hover {
+  background: var(--primary-lt);
+  color: var(--primary);
 }
 .hdr-avatar {
   width: 32px;
