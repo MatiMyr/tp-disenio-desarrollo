@@ -54,6 +54,17 @@
 
   --txt: 16px;
   --txt-sm: 14px;
+
+  /* Ancho máximo del contenido y margen lateral: el encabezado, la barra de
+     pasos y el contenido se alinean con estas dos medidas */
+  --ancho: 1280px;
+  --borde: 32px;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --borde: 16px;
+  }
 }
 
 html,
@@ -76,7 +87,7 @@ body {
   border-bottom: 2px solid var(--ink);
   display: flex;
   align-items: center;
-  padding: 10px 32px;
+  padding: 10px var(--borde);
   gap: 18px;
   flex-wrap: wrap;
 }
@@ -165,7 +176,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 18px 32px 24px;
+  padding: 18px var(--borde) 24px;
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
 }
 .content.row {
   flex-direction: row;
@@ -307,12 +321,6 @@ body {
   color: var(--dis-txt);
   border-color: var(--dis-bd);
   cursor: default;
-}
-.form-hint {
-  font-size: var(--txt-sm);
-  color: var(--mid);
-  font-style: italic;
-  margin-bottom: 10px;
 }
 .readonly-field {
   background: var(--dis-bg);
@@ -533,11 +541,19 @@ td.empty-cell {
 .wizard-bar {
   display: flex;
   align-items: center;
-  padding: 12px 32px;
+  padding: 12px var(--borde);
   background: var(--white);
   border-bottom: 2px solid var(--light);
   flex-wrap: wrap;
   gap: 4px;
+}
+
+/* El fondo ocupa todo el ancho, pero lo que va adentro del encabezado y de la
+   barra de pasos arranca donde arranca el contenido */
+.hdr,
+.wizard-bar {
+  padding-left: max(var(--borde), calc((100% - var(--ancho)) / 2 + var(--borde)));
+  padding-right: max(var(--borde), calc((100% - var(--ancho)) / 2 + var(--borde)));
 }
 .wizard-step {
   display: flex;
@@ -862,10 +878,6 @@ td.empty-cell {
 .role-card.on .role-title {
   color: var(--primary);
 }
-.role-desc {
-  font-size: var(--txt-sm);
-  color: var(--mid);
-}
 .login-steps {
   display: flex;
   flex-direction: column;
@@ -948,15 +960,6 @@ td.empty-cell {
   gap: 10px;
   color: var(--ink);
 }
-.flow-sub {
-  margin-left: auto;
-  font-size: 12px;
-  font-weight: normal;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--mid);
-  font-style: italic;
-}
 .flow-arrow {
   display: flex;
   align-items: center;
@@ -1007,24 +1010,9 @@ td.empty-cell {
   font-weight: bold;
   line-height: 1.15;
 }
-.cu-desc {
-  font-size: var(--txt-sm);
-  color: var(--mid);
-  line-height: 1.3;
-}
 .cu-go {
   font-size: 18px;
   color: #bbb;
-}
-.home-legend {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: var(--txt-sm);
-  color: var(--mid);
-  border-top: 2px dashed var(--light);
-  padding-top: 10px;
-  flex-wrap: wrap;
 }
 .home-top {
   display: flex;
@@ -1036,10 +1024,6 @@ td.empty-cell {
 .home-top h1 {
   font-size: 26px;
   line-height: 1.1;
-}
-.home-top .sub {
-  font-size: var(--txt-sm);
-  color: var(--mid);
 }
 
 /* ---------- Carga ---------- */

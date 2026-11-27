@@ -211,9 +211,6 @@ export default function PantallaEvaluarCandidatos() {
                   ✕ Cancelar
                 </Boton>
               </div>
-              <div className="form-hint" style={{ margin: '10px 0 0' }}>
-                ✎ Dejá los campos vacíos para listar todos los candidatos
-              </div>
               {aviso && (
                 <Mensaje tipo="error" onCerrar={() => setAviso(null)}>
                   {aviso}
@@ -404,9 +401,6 @@ export default function PantallaEvaluarCandidatos() {
                     ))}
                 </tbody>
               </table>
-              <div className="form-hint" style={{ marginTop: 14 }}>
-                ✎ Al volver, quitá esos candidatos de la lista para poder continuar.
-              </div>
             </div>
             <div className="action-bar">
               <Boton
@@ -462,9 +456,6 @@ export default function PantallaEvaluarCandidatos() {
               <Panel titulo="Competencias requeridas" ajustado>
                 {puesto ? (
                   <>
-                    <div style={{ color: 'var(--mid)', fontStyle: 'italic', marginBottom: 10 }}>
-                      Puesto: {puesto.nombre} — {puesto.empresa}
-                    </div>
                     <table className="comp-table">
                       <thead>
                         <tr>

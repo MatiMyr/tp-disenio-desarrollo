@@ -382,10 +382,6 @@ export default function PantallaOrdenMerito() {
 
             <div className="btn-row">
               <Boton onClick={() => setPaso(2)}>← Atrás</Boton>
-              <span style={{ color: 'var(--mid)', fontStyle: 'italic' }}>
-                Apto = cuestionario completo que alcanza la ponderación mínima de cada competencia
-                del puesto
-              </span>
               <Boton tipo="primary" onClick={imprimir} estilo={{ marginLeft: 'auto' }}>
                 🖨 Imprimir
               </Boton>

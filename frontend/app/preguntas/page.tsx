@@ -122,7 +122,6 @@ export default function PantallaGestionPreguntas() {
               onEnter={buscar}
             />
           </div>
-          <div className="form-hint">✎ Completá al menos uno de los criterios</div>
           <div className="btn-row">
             <Boton tipo="primary" onClick={buscar}>
               🔍 Buscar

@@ -82,7 +82,7 @@ export default function PantallaIngreso() {
         </div>
       </header>
 
-      <div className="content row" style={{ gap: 40, alignItems: 'center', padding: '32px' }}>
+      <div className="content row" style={{ gap: 40, alignItems: 'center' }}>
         <div style={{ flex: 1, minWidth: 320 }}>
           <h1 style={{ fontSize: 34, lineHeight: 1.1, marginBottom: 14 }}>
             Sistema de Gestión de
@@ -119,24 +119,14 @@ export default function PantallaIngreso() {
                 onClick={() => cambiarRol('consultor')}
               >
                 <span className={`radio-circle${rol === 'consultor' ? ' checked' : ''}`} />
-                <span>
-                  <span className="role-title">Consultor</span>
-                  <span className="role-desc" style={{ display: 'block' }}>
-                    Gestión, evaluaciones y reportes
-                  </span>
-                </span>
+                <span className="role-title">Consultor</span>
               </button>
               <button
                 className={`role-card${esCandidato ? ' on' : ''}`}
                 onClick={() => cambiarRol('candidato')}
               >
                 <span className={`radio-circle${esCandidato ? ' checked' : ''}`} />
-                <span>
-                  <span className="role-title">Candidato</span>
-                  <span className="role-desc" style={{ display: 'block' }}>
-                    Completar mi cuestionario
-                  </span>
-                </span>
+                <span className="role-title">Candidato</span>
               </button>
             </div>
 

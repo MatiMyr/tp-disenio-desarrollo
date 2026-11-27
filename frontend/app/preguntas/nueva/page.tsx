@@ -345,9 +345,6 @@ export default function PantallaAltaPregunta() {
                 >
                   + Agregar opción
                 </Boton>
-                <span style={{ fontStyle: 'italic', color: 'var(--mid)' }}>
-                  Las ponderaciones deben sumar 10
-                </span>
                 <span>
                   Suma actual:{' '}
                   <span className={`sum ${sumaOk ? 'ok' : 'bad'}`}>
