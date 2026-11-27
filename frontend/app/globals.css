@@ -536,6 +536,23 @@ td.empty-cell {
   border-color: #555;
   color: #555;
 }
+/* Cruz para sacar una fila de la selección */
+.quitar {
+  border: 1.5px solid var(--danger);
+  background: var(--danger-lt);
+  color: var(--danger);
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  font-family: var(--f);
+  font-size: var(--txt-sm);
+  line-height: 1;
+  cursor: pointer;
+}
+.quitar:hover {
+  background: var(--danger);
+  color: #fff;
+}
 
 /* ---------- Asistente por pasos ---------- */
 .wizard-bar {

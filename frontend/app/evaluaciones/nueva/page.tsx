@@ -255,6 +255,7 @@ export default function PantallaEvaluarCandidatos() {
                   { titulo: 'Apellido' },
                   { titulo: 'Nombre' },
                   { titulo: 'Documento' },
+                  { titulo: '', ancho: '60px', centrada: true },
                 ]}
                 filas={visibles.length}
                 buscado={buscado}
@@ -284,6 +285,20 @@ export default function PantallaEvaluarCandidatos() {
                       <td>{c.nombre}</td>
                       <td>
                         {c.tipoDocumento} {c.nroDocumento}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        {marcado && (
+                          <button
+                            className="quitar"
+                            title="Quitar de la selección"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              alternar(marcados, c.nroCandidato, setMarcados);
+                            }}
+                          >
+                            ✕
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
@@ -342,6 +357,7 @@ export default function PantallaEvaluarCandidatos() {
                 { titulo: 'Apellido' },
                 { titulo: 'Nombre' },
                 { titulo: 'Documento' },
+                { titulo: '', ancho: '60px', centrada: true },
               ]}
               filas={aEvaluar.length}
               textoVacio="La lista está vacía. Use “+ Agregar más” para buscar candidatos."
@@ -362,6 +378,20 @@ export default function PantallaEvaluarCandidatos() {
                     <td>{c.nombre}</td>
                     <td>
                       {c.tipoDocumento} {c.nroDocumento}
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      {marcado && (
+                        <button
+                          className="quitar"
+                          title="Quitar de la selección"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            alternar(marcadosLista, c.nroCandidato, setMarcadosLista);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
