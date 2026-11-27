@@ -1,13 +1,12 @@
 package ar.edu.utn.frsf.capitalhumano.externo;
 
-import java.util.List;
+import ar.edu.utn.frsf.capitalhumano.dto.InformeDTO;
 
 /**
- * Impresión de un listado. La primera fila del reporte son los encabezados.
- * En la web "imprimir" es generar el PDF que descarga el navegador, por eso
- * recibe la ruta donde dejarlo (igual que IExportadorExcel).
+ * Impresión de un informe. En la web "imprimir" es generar el PDF que descarga
+ * el navegador, por eso recibe la ruta donde dejarlo.
  */
 public interface IImpresora {
 
-    void imprimir(List<List<String>> reporte, String titulo, String ruta);
+    void imprimir(InformeDTO reporte, String ruta);
 }

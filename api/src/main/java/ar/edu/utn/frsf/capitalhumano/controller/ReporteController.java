@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +31,11 @@ public class ReporteController {
     }
 
     private final GestorReportes gestorReportes;
+    private final UsuarioActual usuarioActual;
 
-    public ReporteController(GestorReportes gestorReportes) {
+    public ReporteController(GestorReportes gestorReportes, UsuarioActual usuarioActual) {
         this.gestorReportes = gestorReportes;
+        this.usuarioActual = usuarioActual;
     }
 
     @GetMapping("/puestos")
@@ -54,10 +57,12 @@ public class ReporteController {
     }
 
     @PostMapping("/impresion")
-    public ResponseEntity<byte[]> imprimirOrdenMerito(@RequestBody SolicitudOrdenMeritoDTO datos) {
+    public ResponseEntity<byte[]> imprimirOrdenMerito(@RequestBody SolicitudOrdenMeritoDTO datos,
+            @RequestHeader(value = "X-Usuario", required = false) String nombreUsuario) {
         List<OrdenMeritoDTO> ordenMerito =
                 gestorReportes.generarOrdenMerito(datos.codigoPuesto(), datos.idsEvaluaciones());
-        ArchivoDTO archivo = gestorReportes.imprimirOrdenMerito(ordenMerito, datos.nombrePuesto());
+        ArchivoDTO archivo = gestorReportes.imprimirOrdenMerito(ordenMerito, datos.codigoPuesto(),
+                datos.idsEvaluaciones(), usuarioActual.resolver(nombreUsuario));
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + archivo.nombre() + "\"")

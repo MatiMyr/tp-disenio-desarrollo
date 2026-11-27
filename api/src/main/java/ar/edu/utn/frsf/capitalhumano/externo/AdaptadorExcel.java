@@ -27,13 +27,16 @@ public class AdaptadorExcel implements IExportadorExcel {
             negrita.setBold(true);
             estiloEncabezado.setFont(negrita);
 
+            // Se resalta la primera fila y la que arranca cada bloque, o sea la
+            // que viene después de una fila en blanco
             for (int f = 0; f < datos.size(); f++) {
                 Row fila = hoja.createRow(f);
                 List<String> valores = datos.get(f);
+                boolean esEncabezado = f == 0 || esFilaVacia(datos.get(f - 1));
                 for (int c = 0; c < valores.size(); c++) {
                     Cell celda = fila.createCell(c);
                     celda.setCellValue(valores.get(c));
-                    if (f == 0) {
+                    if (esEncabezado) {
                         celda.setCellStyle(estiloEncabezado);
                     }
                 }
@@ -47,6 +50,10 @@ public class AdaptadorExcel implements IExportadorExcel {
         } catch (IOException e) {
             throw new UncheckedIOException("No se pudo generar el archivo Excel", e);
         }
+    }
+
+    private boolean esFilaVacia(List<String> fila) {
+        return fila.isEmpty() || fila.stream().allMatch(v -> v == null || v.isBlank());
     }
 
     private Workbook inicializarLibro() {

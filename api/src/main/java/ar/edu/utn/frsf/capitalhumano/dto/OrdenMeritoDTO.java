@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  */
 public record OrdenMeritoDTO(String tipoDocumento, String nroDocumento, String apellido,
                              String nombre, Float puntajeObtenido, String estadoCuestionario,
-                             LocalDateTime fechaInicio, LocalDateTime fechaFin,
-                             LocalDateTime ultimoIngreso, int cantidadAccesos, boolean apto) {
+                             LocalDateTime fechaCreacion, LocalDateTime fechaInicio,
+                             LocalDateTime fechaFin, LocalDateTime ultimoIngreso,
+                             int cantidadAccesos, boolean apto) {
 }
